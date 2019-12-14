@@ -11,11 +11,8 @@ for p in papeis:
     precos[p] = wb.DataReader(p, data_source='yahoo',
                               start='1995-1-1')['Adj Close']
 
-
-# %%
 precos.info()
 
-# %%
 precos.head(10)
 
 # %%
@@ -25,17 +22,23 @@ precos.iloc[0]
 dados_normlizados = precos/precos.iloc[0] * 100
 dados_normlizados.plot(figsize=(12, 6))
 
-# %%
+
 precos.plot(figsize=(12, 6))
 
-# %%
 retornos = precos / precos.shift(1)-1
 
 pesos = np.array([0.25, 0.25, 0.25, 0.25])
 
-ponderacao = np.dot(retornos, pesos)
 
-#%%
-retorno_anaual = ponderacao.mean() * 250
-retorno_carteira = np.dot(retorno_anaual, pesos)
-retorno_carteira
+# %%
+retornos.head()
+retornos_ano = retornos.mean() * 250
+
+# %%
+retorno_carteira = np.dot(retornos_ano, pesos)
+
+# %%
+print(round(retorno_carteira * 100, 2), "%")
+
+
+# %%
